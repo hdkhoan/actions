@@ -1,0 +1,21 @@
+name: Rclone
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  bit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: prepare rclone
+        env:
+          RCLONE_URI: ${{ secrets.RCLONE_URI }}
+        run: |
+          sudo -v ; curl https://rclone.org/install.sh | sudo bash
+          wget -O ~/.config/rclone/rclone.conf $RCLONE_URI
+      - name: backup bit
+        run: |
+          rclone copy bit:/data gd:"/Github Action/bit"
