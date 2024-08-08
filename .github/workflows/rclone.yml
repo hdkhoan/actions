@@ -15,6 +15,7 @@ jobs:
           RCLONE_URI: ${{ secrets.RCLONE_URI }}
         run: |
           sudo -v ; curl https://rclone.org/install.sh | sudo bash
+          mkdir -p ~/.config/rclone
           wget -O ~/.config/rclone/rclone.conf $RCLONE_URI
       - name: backup bit
         run: |
