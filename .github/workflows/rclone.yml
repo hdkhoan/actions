@@ -21,3 +21,22 @@ jobs:
       - name: backup bit
         run: |
           rclone copy bit:/data gd:"/Github Action/bit"
+      - name: clean rclone.conf file
+        run: rm -rf ~/.config/rclone/rclone.conf
+
+  git:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: prepare rclone
+        env:
+          RCLONE_URI: ${{ secrets.RCLONE_URI }}
+        run: |
+          sudo -v ; curl https://rclone.org/install.sh | sudo bash
+          mkdir -p ~/.config/rclone
+          wget -O ~/.config/rclone/rclone.conf $RCLONE_URI
+      - name: backup bit
+        run: |
+          rclone copy git:/ gd:"/Github Action/git"
+      - name: clean rclone.conf file
+        run: rm -rf ~/.config/rclone/rclone.conf
