@@ -54,6 +54,6 @@ jobs:
           wget -O ~/.config/rclone/rclone.conf $RCLONE_URI
       - name: backup bit
         run: |
-          rclone copy memos:/memos gd:"/Github Action/git"
+          rclone copy memos:/memos gd:"/Github Action/memos"
       - name: clean rclone.conf file
         run: rm -rf ~/.config/rclone/rclone.conf
